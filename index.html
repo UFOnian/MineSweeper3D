@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-store" />
+  <title>MineSweeper3D</title>
+  <style>
+    * {
+      font-family: "JetBrains Mono", consolas;
+    }
+
+    input {
+      text-align: right;
+    }
+
+    #tBoard,
+    #tBoard tr,
+    #tBoard tr > td {
+      border-collapse: collapse;
+      border: solid 1px;
+    }
+
+    #tBoard tr > td,
+    #tBoard tr > td > button {
+      padding: 0;
+      text-align: center;
+      height: 22px;
+      width: 22px;
+    }
+
+    /* open */
+    #tBoard tr > td > button {
+      background-color: #888;
+      border: solid 3px white;
+    }
+
+    #tBoard tr > td > button.opened {
+      background-color: white;
+      border: solid 3px #aaa;
+    }
+
+    #tBoard tr > td > button.flagged {
+      background-color: #888;
+      border: solid 3px white;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="params">
+    <label for="inRows">Rows: <input name="inRows" id="inRows" type="number" size="3" min="1" max="300" value="4"/></label>
+    <label for="inCols">Cols: <input name="inCols" id="inCols" type="number" size="3" min="1" max="300" value="4"/></label>
+    <label for="inHeight">Heights: <input name="inHeight" id="inHeight" type="number" size="3" min="1" max="300" value="4"/></label>
+    <label for="inBombs">Bombs: <input name="inBombs" id="inBombs" type="number" size="3" min="1" max="999" value="12"/></label>
+    <div>
+      <label for="inSafeAround"><input type="checkbox" name="inSafeAround" id="inSafeAround" />初期位置の周りを安全にする</label>
+    </div>
+    <div id="divMsg">Messages: <span id="lblMessage" style="color: red"></span></div>
+  </div>
+  <div id="gameField" style="width: fit-content">
+    <div>
+      <input name="inBombsRemain" id="inBombsRemain" type="text" readonly size="3" />
+      <button id="btnReset">reset</button>
+      <input name="inTimer" id="inTimer" type="text" readonly size="3" />
+    </div>
+    <table id="tBoard" draggable="false"></table>
+  </div>
+  <script defer src="main.js"></script>
+</body>
+</html>
