@@ -89,7 +89,6 @@ class Cell {
     this.#c = c;
     this.#h = h;
     this.#i = h * game.rowCount * game.colCount + r * game.colCount + c;
-    console.groupCollapsed(this.#i);
     this.el = td(this);
     for (let i = r - 1; i < r + 2 && i < game.rowCount; i++) {
       if (i < 0) continue;
@@ -99,11 +98,9 @@ class Cell {
           if (k < 0) continue;
           if (!(i - r || j - c || k - h)) continue;
           this.around.push(k * game.colCount * game.rowCount + i * game.colCount + j);
-          console.log(JSON.stringify({ r: i, c: j, h: k, map: k * game.colCount * game.rowCount + i * game.colCount + j }));
         }
       }
     }
-    console.groupEnd(this.#i);
   }
   clicked() {
     if (this.#game.isGameOver) return;
@@ -133,8 +130,6 @@ class Cell {
       this.text = Cell.BOMB;
       return this.#game.setGameOver();
     }
-    console.warn(this.i);
-    console.warn(this.around);
     if (this.aroundBombsCount)
       this.text = this.aroundBombsCount;
     else this.openAll();
