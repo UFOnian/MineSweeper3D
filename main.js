@@ -3,6 +3,7 @@ let inCols = HTMLInputElement.prototype;
 let inHeight = HTMLInputElement.prototype;
 let inBombs = HTMLInputElement.prototype;
 let inSafeAround = HTMLInputElement.prototype;
+let isFlagMode = HTMLInputElement.prototype;
 let lblMessage = HTMLSpanElement.prototype;
 let btnReset = HTMLButtonElement.prototype;
 let tBoard = HTMLTableElement.prototype;
@@ -180,7 +181,10 @@ class Board {
     this.timer = new SecondsTimer(timerElement);
     this.tableElement.addEventListener('click', ev => {
       if (!ev.target.cl) return ev.preventDefault();
-      ev.target.cl.clicked();
+      if (isFlagMode.checked && !ev.target.cl.opened) {
+        ev.target.cl.toggleFlag();
+        this.dispBombsCount = this.remainBombsCount;
+      } else ev.target.cl.clicked();
     });
     this.tableElement.addEventListener('contextmenu', ev => {
       ev.preventDefault();
@@ -208,6 +212,7 @@ class Board {
     this.heightCount = heightCount;
     this.bombCount = bombCount;
     this.isSafeAround = isSafeAround;
+    isFlagMode.checked = false;
 
     this.tableElement.innerHTML = '';
     this.table = Array(heightCount).fill().map((v, h) => Array(rowCount).fill().map((v, r) => Array(colCount).fill().map((v, c) => new Cell(this, r, c, h))));
